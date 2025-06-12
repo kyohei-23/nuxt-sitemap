@@ -111,6 +111,7 @@ export default defineNuxtConfig({
         '/prerender-video',
         '/should-be-in-sitemap',
         '/foo.bar/',
+        '/redirect',
         '/test.doc',
         '/api/prerendered',
       ],
