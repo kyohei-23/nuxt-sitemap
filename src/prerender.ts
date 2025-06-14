@@ -37,7 +37,7 @@ export function isNuxtGenerate(nuxt: Nuxt = useNuxt()) {
   ].includes(resolveNitroPreset())
 }
 
-const NuxtRedirectHtmlRegex = /<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=([^"]+)"><\/head><\/html>/
+const NuxtRedirectHtmlRegex = /<meta http-equiv="refresh" content="0;\s*?url=([^"]+)">/
 
 export function setupPrerenderHandler(_options: { runtimeConfig: ModuleRuntimeConfig, logger: ConsolaInstance }, nuxt: Nuxt = useNuxt()) {
   const { runtimeConfig: options, logger } = _options
@@ -61,7 +61,7 @@ export function setupPrerenderHandler(_options: { runtimeConfig: ModuleRuntimeCo
       if (!route.fileName?.endsWith('.html') || !html || ['/200.html', '/404.html'].includes(route.route))
         return
       // ignore redirects
-      if (html.match(NuxtRedirectHtmlRegex)) {
+      if (NuxtRedirectHtmlRegex.test(html)) {
         return
       }
 
